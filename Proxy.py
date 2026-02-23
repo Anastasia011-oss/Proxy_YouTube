@@ -22,12 +22,21 @@ class ThirdPartyYouTubeClass(ThirdPartyYouTubeLib):
     def listVideos(self):
         self._simulate_network_latency()
         print("Получение списка видео с YouTube")
-        return ["video1", "video2", "video3"]
+        return [
+            {"id": "video1", "title": "Как готовить борщ", "duration": "10:35"},
+            {"id": "video2", "title": "Урок Python для начинающих", "duration": "25:10"},
+            {"id": "video3", "title": "Музыка для учебы", "duration": "1:00:00"}
+        ]
 
     def getVideoInfo(self, video_id):
         self._simulate_network_latency()
         print(f"Получение информации о видео {video_id}")
-        return {"id": video_id, "title": "Some Video"}
+        return {
+            "id": video_id,
+            "title": "Как готовить борщ",
+            "duration": "10:35",
+            "author": "Chef TV"
+        }
 
     def downloadVideo(self, video_id):
         self._simulate_network_latency()
@@ -75,7 +84,10 @@ class YouTubeManager:
 
     def renderListPanel(self):
         videos = self.service.listVideos()
-        print(f"Список видео: {videos}")
+        print("Список видео:")
+        for v in videos:
+            print(f" - {v['title']} ({v['duration']}) [id={v['id']}]")
+
 
 
 if __name__ == "__main__":
